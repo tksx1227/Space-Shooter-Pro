@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour {
   IEnumerator SpawnPowerupRoutine() {
     while (!_stopSpawning) {
       Vector3 posToSpawn = new Vector3(Random.Range(-8.0f, 8.0f), 7.0f, 0);
-      int randomPowerUp = Random.Range(0, 2);
+      int randomPowerUp = Random.Range(0, 3);
       GameObject newPowerupItem = Instantiate(_powerups[randomPowerUp], posToSpawn, Quaternion.identity);
       yield return new WaitForSeconds(Random.Range(3.0f, 8.0f));
     }

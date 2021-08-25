@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +16,11 @@ public class Player : MonoBehaviour {
   [SerializeField]
   private int _lives = 3;
   private SpawnManager _spawnManager;
+  [SerializeField]
+  private GameObject _shieldsVisualizer;
 
   private bool _isTripleShotActive = false;
+  private bool _isShieldsActive = false;
 
   void Start() {
     transform.position = new Vector3(0, 0, 0);
@@ -65,8 +67,13 @@ public class Player : MonoBehaviour {
   }
 
   public void Damage() {
-    _lives -= 1;
+    if (_isShieldsActive) {
+      _isShieldsActive = false;
+      _shieldsVisualizer.SetActive(false);
+      return;
+    }
 
+    _lives -= 1;
     if (_lives < 1) {
       _spawnManager.onPlayerDeath();
       Destroy(this.gameObject);
@@ -91,5 +98,10 @@ public class Player : MonoBehaviour {
   IEnumerator SpeedBoostPowerDownRoutine() {
     yield return new WaitForSeconds(5.0f);
     _speed /= _speedMultiplier;
+  }
+
+  public void ShieldsActive() {
+    _shieldsVisualizer.SetActive(true);
+    _isShieldsActive = true;
   }
 }

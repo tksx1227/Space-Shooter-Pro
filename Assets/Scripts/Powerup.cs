@@ -29,7 +29,10 @@ public class Powerup : MonoBehaviour {
             player.SpeedBoostActive();
             break;
           case 2:
-            Debug.Log("Shields");
+            player.ShieldsActive();
+            break;
+          default:
+            Debug.Log("Default value");
             break;
         }
       }
